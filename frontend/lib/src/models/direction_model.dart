@@ -1,38 +1,19 @@
-import 'dart:ui';
+import 'point_model.dart';
 
 class DirectionModel {
-  final String id;
-  final Offset start; // normalized
-  final Offset end;   // normalized
-  final Map<String, String> label; // { "en": "...", "ro": "..." }
-  final bool locked;
+  String label;
+  List<PointModel> points;
+  String colorHex;
 
   DirectionModel({
-    required this.id,
-    required this.start,
-    required this.end,
     required this.label,
-    this.locked = true,
+    required this.points,
+    required this.colorHex,
   });
 
-  DirectionModel copyWith({
-    Map<String, String>? label,
-    bool? locked,
-  }) {
-    return DirectionModel(
-      id: id,
-      start: start,
-      end: end,
-      label: label ?? this.label,
-      locked: locked ?? this.locked,
-    );
-  }
-
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'type': 'line',
         'label': label,
-        'start': {'x': start.dx, 'y': start.dy},
-        'end': {'x': end.dx, 'y': end.dy},
+        'color': colorHex,
+        'points': points.map((p) => p.toJson()).toList(),
       };
 }

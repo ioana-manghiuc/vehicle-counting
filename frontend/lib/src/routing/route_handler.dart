@@ -1,35 +1,48 @@
+// lib/src/routing/route_handler.dart
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
 import '../screens/home_screen.dart';
-import '../screens/video_player_screen.dart';
-import '../screens/settings_screen.dart';
-import '../view_models/video_player_view_model.dart';
+import '../screens/directions_screen.dart';
+import '../screens/results_screen.dart';
+import '../models/video_model.dart';
 
-class RouteHandler {
+class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case '/':
-        return MaterialPageRoute(
-          builder: (_) => const HomeScreen(),
-        );
+        return MaterialPageRoute(builder: (_) => const HomeScreen());
 
-      case '/video':
-        return MaterialPageRoute(
-          builder: (_) => ChangeNotifierProvider(
-            create: (_) => VideoPlayerViewModel(),
-            child: const VideoPlayerScreen(),
-          ),
-        );
+      case '/directions':
+        if (settings.arguments is VideoModel) {
+          final video = settings.arguments as VideoModel;
+          return MaterialPageRoute(
+            builder: (_) => DirectionsScreen(video: video),
+          );
+        } else {
+          return MaterialPageRoute(
+            builder: (_) => const Scaffold(
+              body: Center(
+                child: Text(
+                  'Error: VideoModel is required for DirectionsScreen',
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
+            ),
+          );
+        }
 
-      case '/settings':
-        return MaterialPageRoute(
-          builder: (_) => const SettingsScreen(),
-        );
+      case '/results':
+        return MaterialPageRoute(builder: (_) => const ResultsScreen());
 
       default:
         return MaterialPageRoute(
-          builder: (_) => const HomeScreen(),
+          builder: (_) => const Scaffold(
+            body: Center(
+              child: Text(
+                'No route defined for this path',
+                style: TextStyle(color: Colors.red),
+              ),
+            ),
+          ),
         );
     }
   }

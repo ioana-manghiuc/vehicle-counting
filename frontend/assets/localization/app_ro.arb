@@ -4,5 +4,10 @@
   "drawDirections": "Desenează direcții",
   "settings": "Setări",
   "theme": "Temă",
-  "language": "Limbă"
+  "language": "Limbă",
+  "directionLabel": "Direcție",
+  "direction_ns": "Nord → Sud",
+  "direction_sn": "Sud → Nord",
+  "direction_ew": "Est → Vest",
+  "direction_we": "Vest → Est"
 }

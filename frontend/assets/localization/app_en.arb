@@ -4,5 +4,10 @@
   "drawDirections": "Draw directions",
   "settings": "Settings",
   "theme": "Theme",
-  "language": "Language"
+  "language": "Language",
+  "directionLabel": "Direction",
+  "direction_ns": "North → South",
+  "direction_sn": "South → North",
+  "direction_ew": "East → West",
+  "direction_we": "West → East"
 }
