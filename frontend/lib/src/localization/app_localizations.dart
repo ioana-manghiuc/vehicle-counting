@@ -47,6 +47,11 @@ class _AppLocalizationsDelegate
   }
 
   @override
-  bool shouldReload(covariant LocalizationsDelegate<AppLocalizations> old) =>
-      false;
+  bool shouldReload(covariant LocalizationsDelegate<AppLocalizations> old) {
+    // Return true to force reload when locale changes
+    if (old is _AppLocalizationsDelegate) {
+      return true;
+    }
+    return false;
+  }
 }

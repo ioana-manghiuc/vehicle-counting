@@ -2,6 +2,15 @@
   "appTitle": "Numărător Vehicule",
   "uploadVideo": "Încarcă video",
   "drawDirections": "Desenează direcții",
+  "pickVideo": "Selectează Video",
+  "addDirection": "Adaugă Direcție",
+  "from": "De la",
+  "to": "Către",
+  "save": "Salvează",
+  "delete": "Șterge",
+  "sendToBackend": "Trimite la Backend",
+  "locked": "Blocat",
+  "editable": "Editabil",
   "settings": "Setări",
   "theme": "Temă",
   "language": "Limbă",
@@ -9,5 +18,11 @@
   "direction_ns": "Nord → Sud",
   "direction_sn": "Sud → Nord",
   "direction_ew": "Est → Vest",
-  "direction_we": "Vest → Est"
+  "direction_we": "Vest → Est",
+  "pickAColor": "Alege o culoare",
+  "cancel": "Anulează",
+  "directionError": "Eroare de Direcție",
+  "pleaseDrawDirection": "Te rog desenează o direcție pe pânză mai întâi.",
+  "error": "Eroare",
+  "noDirectionSelected": "Nicio direcție selectată."
 }

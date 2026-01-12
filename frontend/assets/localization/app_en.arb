@@ -2,6 +2,15 @@
   "appTitle": "Vehicle Counter",
   "uploadVideo": "Upload video",
   "drawDirections": "Draw directions",
+  "pickVideo": "Pick Video",
+  "addDirection": "Add Direction",
+  "from": "From",
+  "to": "To",
+  "save": "Save",
+  "delete": "Delete",
+  "sendToBackend": "Send to Backend",
+  "locked": "Locked",
+  "editable": "Editable",
   "settings": "Settings",
   "theme": "Theme",
   "language": "Language",
@@ -9,5 +18,11 @@
   "direction_ns": "North → South",
   "direction_sn": "South → North",
   "direction_ew": "East → West",
-  "direction_we": "West → East"
+  "direction_we": "West → East",
+  "pickAColor": "Pick a color",
+  "cancel": "Cancel",
+  "directionError": "Direction Error",
+  "pleaseDrawDirection": "Please draw a direction on the canvas first.",
+  "error": "Error",
+  "noDirectionSelected": "No direction selected."
 }

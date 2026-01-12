@@ -4,6 +4,9 @@ import '../screens/home_screen.dart';
 import '../screens/directions_screen.dart';
 import '../screens/results_screen.dart';
 import '../models/video_model.dart';
+import 'package:provider/provider.dart';
+import '../providers/directions_provider.dart';
+
 
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -14,21 +17,22 @@ class AppRouter {
       case '/directions':
         if (settings.arguments is VideoModel) {
           final video = settings.arguments as VideoModel;
+
           return MaterialPageRoute(
             builder: (_) => DirectionsScreen(video: video),
           );
-        } else {
-          return MaterialPageRoute(
-            builder: (_) => const Scaffold(
-              body: Center(
-                child: Text(
-                  'Error: VideoModel is required for DirectionsScreen',
-                  style: TextStyle(color: Colors.red),
-                ),
+        }
+
+        return MaterialPageRoute(
+          builder: (_) => const Scaffold(
+            body: Center(
+              child: Text(
+                'Error: VideoModel required for DirectionsScreen',
+                style: TextStyle(color: Colors.red),
               ),
             ),
-          );
-        }
+          ),
+        );
 
       case '/results':
         return MaterialPageRoute(builder: (_) => const ResultsScreen());

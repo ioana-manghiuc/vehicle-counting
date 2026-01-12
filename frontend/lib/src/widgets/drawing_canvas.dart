@@ -1,12 +1,11 @@
-// lib/src/widgets/draw_on_image.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/directions_provider.dart';
 
-class DrawOnImage extends StatelessWidget {
+class DrawingCanvas extends StatelessWidget {
   final String imageUrl;
 
-  const DrawOnImage({super.key, required this.imageUrl});
+  const DrawingCanvas({super.key, required this.imageUrl});
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +22,12 @@ class DrawOnImage extends StatelessWidget {
       },
       child: Stack(
         children: [
-          Image.network(imageUrl, fit: BoxFit.contain),
-          CustomPaint(
-            size: Size.infinite,
-            painter: _DirectionsPainter(
-              directions: provider.directions,
-              currentColor: provider.currentColor,
+          Positioned.fill(
+            child: Image.network(imageUrl, fit: BoxFit.contain),
+          ),
+          Positioned.fill(
+            child: CustomPaint(
+              painter: _DirectionsPainter(provider.directions),
             ),
           ),
         ],
@@ -39,9 +38,8 @@ class DrawOnImage extends StatelessWidget {
 
 class _DirectionsPainter extends CustomPainter {
   final List directions;
-  final Color currentColor;
 
-  _DirectionsPainter({required this.directions, required this.currentColor});
+  _DirectionsPainter(this.directions);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -49,22 +47,18 @@ class _DirectionsPainter extends CustomPainter {
       final paint = Paint()
         ..color = d.color
         ..strokeWidth = d.isLocked ? 3 : 4
-        ..style = PaintingStyle.stroke
-        ..strokeCap = StrokeCap.round;
+        ..style = PaintingStyle.stroke;
 
       if (d.points.length < 2) continue;
 
-      final path = Path()
-        ..moveTo(d.points.first.dx * size.width, d.points.first.dy * size.height);
-      
+      final path = Path()..moveTo(d.points.first.dx * size.width, d.points.first.dy * size.height);
       for (final p in d.points.skip(1)) {
         path.lineTo(p.dx * size.width, p.dy * size.height);
       }
-      
       canvas.drawPath(path, paint);
     }
   }
 
   @override
-  bool shouldRepaint(covariant _DirectionsPainter oldDelegate) => true;
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }
