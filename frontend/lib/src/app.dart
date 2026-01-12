@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'routing/route_handler.dart';
 import 'providers/theme_provider.dart';
 import 'providers/language_provider.dart';
@@ -23,8 +24,15 @@ class VehicleCounterApp extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             locale: language.locale,
-            theme: ThemeData.light(),
-            darkTheme: ThemeData.dark(),
+            theme: ThemeData(
+              useMaterial3: true,
+              fontFamily: GoogleFonts.phudu().fontFamily,
+            ),
+            darkTheme: ThemeData(
+              useMaterial3: true,
+              brightness: Brightness.dark,
+              fontFamily: GoogleFonts.phudu().fontFamily,
+            ),
             themeMode: theme.isDark ? ThemeMode.dark : ThemeMode.light,
             supportedLocales: AppLocalizations.supportedLocales,
             localizationsDelegates: const [

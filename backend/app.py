@@ -67,9 +67,7 @@ async def count_vehicles(
     parsed_directions = json.loads(directions)
 
     # TODO: YOLO processing here later
-    print("Received video:", video.filename)
-    print("Received directions:", parsed_directions)
-
+    
     return {
         "status": "ok",
         "message": "Vehicle counting not implemented yet",

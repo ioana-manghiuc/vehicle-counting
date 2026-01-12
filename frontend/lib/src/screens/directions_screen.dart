@@ -3,11 +3,10 @@ import 'package:provider/provider.dart';
 
 import '../models/video_model.dart';
 import '../providers/directions_provider.dart';
-import '../providers/theme_provider.dart';
-import '../providers/language_provider.dart';
 import '../localization/app_localizations.dart';
 import '../widgets/draw_on_image.dart';
 import '../widgets/directions_panel.dart';
+import '../widgets/app_bar.dart';
 import '../utils/backend_service.dart';
 
 class DirectionsScreen extends StatelessWidget {
@@ -18,71 +17,23 @@ class DirectionsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildAppBar(context),
+      appBar: const AppBarWidget(titleKey: 'drawDirections'),
       body: video.thumbnailUrl == null
           ? const Center(child: CircularProgressIndicator())
-          : const _DirectionsScreenBody(),
-    );
-  }
-
-  AppBar _buildAppBar(BuildContext context) {
-    final themeProvider = context.watch<ThemeProvider>();
-    final languageProvider = context.watch<LanguageProvider>();
-    final localizations = AppLocalizations.of(context);
-
-    return AppBar(
-      title: Text(localizations?.translate('drawDirections') ?? 'Draw Directions'),
-      actions: [
-        // Language toggle
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: ToggleButtons(
-            isSelected: [
-              languageProvider.locale.languageCode == 'en',
-              languageProvider.locale.languageCode == 'ro',
-            ],
-            onPressed: (index) {
-              languageProvider.setLanguage(index == 0 ? 'en' : 'ro');
-            },
-            children: const [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12.0),
-                child: Text('EN'),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12.0),
-                child: Text('RO'),
-              ),
-            ],
-          ),
-        ),
-        // Theme toggle
-        IconButton(
-          icon: Icon(
-            themeProvider.isDark ? Icons.light_mode : Icons.dark_mode,
-          ),
-          onPressed: themeProvider.toggleTheme,
-          tooltip: themeProvider.isDark ? 'Light Mode' : 'Dark Mode',
-        ),
-        const SizedBox(width: 8),
-      ],
+          : _DirectionsScreenBody(video: video),
     );
   }
 }
 
 class _DirectionsScreenBody extends StatelessWidget {
-  const _DirectionsScreenBody();
+  final VideoModel video;
+
+  const _DirectionsScreenBody({super.key, required this.video});
 
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<DirectionsProvider>();
     final localizations = AppLocalizations.of(context);
-    // Get video from route arguments
-    final video = ModalRoute.of(context)?.settings.arguments as VideoModel?;
-
-    if (video == null) {
-      return const Center(child: Text('Error: No video provided'));
-    }
 
     return Row(
       children: [
