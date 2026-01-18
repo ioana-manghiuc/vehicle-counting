@@ -29,6 +29,7 @@ class BackendService {
   static Future<bool> sendDirections(
     String videoPath,
     List<Map<String, dynamic>> directions,
+    String modelName,
   ) async {
     final request = http.MultipartRequest(
       'POST',
@@ -40,6 +41,7 @@ class BackendService {
     );
 
     request.fields['directions'] = jsonEncode(directions);
+    request.fields['model_name'] = modelName;
 
     final response = await request.send();
     return response.statusCode == 200;

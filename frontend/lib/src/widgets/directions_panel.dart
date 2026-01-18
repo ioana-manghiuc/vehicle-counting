@@ -15,18 +15,49 @@ class DirectionsPanel extends StatelessWidget {
     final direction = provider.selectedDirection;
     final localizations = AppLocalizations.of(context);
 
-    return Column(
-      children: [
-        ElevatedButton(
-          onPressed: () => provider.startNewDirection(),
-          child: Text(localizations?.translate('addDirection') ?? 'Add Direction'),
-        ),
-        Expanded(
-          child: direction == null
-              ? const SizedBox.shrink()
-              : _DirectionCard(localizations: localizations),
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          DropdownButtonFormField<String>(
+            value: provider.selectedModel,
+            decoration: const InputDecoration(
+              labelText: 'YOLO model',
+              isDense: true,
+              border: OutlineInputBorder(),
+            ),
+            items: const ['yolo11n', 'yolo11s', 'yolo11m', 'yolo11l', 'yolo11xl']
+                .map(
+                  (model) => DropdownMenuItem(
+                    value: model,
+                    child: Text(model.toUpperCase()),
+                  ),
+                )
+                .toList(),
+            onChanged: (model) {
+              if (model != null) {
+                provider.setSelectedModel(model);
+              }
+            },
+          ),
+
+          const SizedBox(height: 8),
+
+          Expanded(
+            child: direction == null
+                ? const SizedBox.shrink()
+                : _DirectionCard(localizations: localizations),
+          ),
+
+          ElevatedButton(
+            onPressed: () => provider.startNewDirection(),
+            child: Text(
+              localizations?.translate('addDirection') ?? 'Add Direction',
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -66,13 +97,12 @@ class _DirectionCardState extends State<_DirectionCard> {
     final localizations = widget.localizations;
 
     return Card(
-      margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+      margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 4),
       child: Padding(
         padding: const EdgeInsets.all(8),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             Row(
               children: [
                 GestureDetector(
@@ -87,9 +117,11 @@ class _DirectionCardState extends State<_DirectionCard> {
                   ),
                 ),
                 const SizedBox(width: 8),
-                Text(direction.isLocked
-                    ? localizations?.translate('locked') ?? 'Locked'
-                    : localizations?.translate('editable') ?? 'Editable'),
+                Text(
+                  direction.isLocked
+                      ? localizations?.translate('locked') ?? 'Locked'
+                      : localizations?.translate('editable') ?? 'Editable',
+                ),
               ],
             ),
 
@@ -100,7 +132,7 @@ class _DirectionCardState extends State<_DirectionCard> {
               controller: _fromController,
               onChanged: (v) => provider.updateLabels(v, _toController.text),
             ),
- 
+
             TextField(
               decoration: InputDecoration(
                 labelText: localizations?.translate('to') ?? 'To',
@@ -113,7 +145,7 @@ class _DirectionCardState extends State<_DirectionCard> {
               children: [
                 TextButton(
                   onPressed: !direction.isLocked
-                      ? () => _saveDirection(context, direction, provider)
+                      ? () => _saveDirection(context, provider)
                       : null,
                   child: Text(localizations?.translate('save') ?? 'Save'),
                 ),
@@ -154,7 +186,7 @@ class _DirectionCardState extends State<_DirectionCard> {
             onPressed: () {
               provider.updateColor(tempColor);
               Navigator.of(context).pop();
-             },
+            },
             child: Text(localizations?.translate('save') ?? 'Save'),
           ),
         ],
@@ -162,42 +194,36 @@ class _DirectionCardState extends State<_DirectionCard> {
     );
   }
 
-  void _saveDirection(BuildContext context, dynamic direction, dynamic provider) {
+  void _saveDirection(BuildContext context, DirectionsProvider provider) {
     final currentDirection = provider.selectedDirection;
     final localizations = widget.localizations;
 
     if (currentDirection == null) {
-      _showErrorDialog(context, localizations?.translate('error') ?? ErrorStrings.errorTitle,
-          localizations?.translate('noDirectionSelected') ?? ErrorStrings.noDirectionSelected);
-      return;
-    }
-
-    if (currentDirection.points.isEmpty) {
       _showErrorDialog(
-          context,
-          localizations?.translate('directionError') ?? ErrorStrings.directionErrorTitle,
-          localizations?.translate('pleaseDrawDirection') ??
-              ErrorStrings.pleaseDrawDirection);
+        context,
+        localizations?.translate('error') ?? ErrorStrings.errorTitle,
+        localizations?.translate('noDirectionSelected') ??
+            ErrorStrings.noDirectionSelected,
+      );
       return;
     }
 
     if (currentDirection.points.length < 2) {
       _showErrorDialog(
-          context,
-          localizations?.translate('directionError') ?? ErrorStrings.directionErrorTitle,
-          ErrorStrings.minimumTwoPoints);
+        context,
+        localizations?.translate('directionError') ??
+            ErrorStrings.directionErrorTitle,
+        ErrorStrings.minimumTwoPoints,
+      );
       return;
     }
 
-    if (_fromController.text.isEmpty) {
-      _showErrorDialog(context, localizations?.translate('error') ?? ErrorStrings.errorTitle,
-          ErrorStrings.emptyFromLocation);
-      return;
-    }
-
-    if (_toController.text.isEmpty) {
-      _showErrorDialog(context, localizations?.translate('error') ?? ErrorStrings.errorTitle,
-          ErrorStrings.emptyToLocation);
+    if (_fromController.text.isEmpty || _toController.text.isEmpty) {
+      _showErrorDialog(
+        context,
+        localizations?.translate('error') ?? ErrorStrings.errorTitle,
+        ErrorStrings.emptyFromLocation,
+      );
       return;
     }
 

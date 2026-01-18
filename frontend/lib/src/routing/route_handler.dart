@@ -3,6 +3,7 @@ import '../screens/home_screen.dart';
 import '../screens/directions_screen.dart';
 import '../screens/results_screen.dart';
 import '../screens/about_screen.dart';
+import '../screens/model_info_screen.dart';
 import '../models/video_model.dart';
 
 class AppRouter {
@@ -36,6 +37,9 @@ class AppRouter {
 
       case '/about':
         return MaterialPageRoute(builder: (_) => const AboutScreen());
+
+      case '/model-info':
+        return MaterialPageRoute(builder: (_) => const ModelInfoScreen());
 
       default:
         return MaterialPageRoute(

@@ -65,6 +65,7 @@ class HomeScreen extends StatelessWidget {
                                           await BackendService.sendDirections(
                                             vm.video!.path,
                                             directionsProvider.serializeDirections(),
+                                            directionsProvider.selectedModel,
                                           );
                                         }
                                       : null,

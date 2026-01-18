@@ -6,12 +6,14 @@ class DirectionsProvider extends ChangeNotifier {
   final List<DirectionLine> _directions = [];
   DirectionLine? _active;    
   DirectionLine? _selected;  
-  Color _currentColor = Colors.red; 
+  Color _currentColor = Colors.red;
+  String _selectedModel = 'yolo11n';
 
   List<DirectionLine> get directions => _directions;
   DirectionLine? get activeDirection => _active;
   DirectionLine? get selectedDirection => _selected;
   Color get currentColor => _currentColor;
+  String get selectedModel => _selectedModel;
 
   bool get canSend => _directions.any((d) => d.isLocked);
 
@@ -95,6 +97,11 @@ class DirectionsProvider extends ChangeNotifier {
     _directions.remove(d);
     if (_active == d) _active = null;
     if (_selected == d) _selected = null;
+    notifyListeners();
+  }
+
+  void setSelectedModel(String model) {
+    _selectedModel = model;
     notifyListeners();
   }
 

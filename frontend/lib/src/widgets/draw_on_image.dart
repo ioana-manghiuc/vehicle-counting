@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/directions_provider.dart';
@@ -14,41 +15,98 @@ class DrawOnImage extends StatefulWidget {
 
 class _DrawOnImageState extends State<DrawOnImage> {
   Offset? _cursorPosition;
+  Size? _imageSize;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadImageDimensions();
+  }
+
+  @override
+  void didUpdateWidget(covariant DrawOnImage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.imageUrl != widget.imageUrl) {
+      _imageSize = null;
+      _loadImageDimensions();
+    }
+  }
+
+  void _loadImageDimensions() {
+    final stream = NetworkImage(widget.imageUrl).resolve(const ImageConfiguration());
+    stream.addListener(ImageStreamListener((info, _) {
+      setState(() {
+        _imageSize = Size(
+          info.image.width.toDouble(),
+          info.image.height.toDouble(),
+        );
+      });
+    }));
+  }
 
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<DirectionsProvider>();
 
-    return MouseRegion(
-      onHover: (event) {
-        setState(() {
-          _cursorPosition = event.localPosition;
-        });
-      },
-      onExit: (_) {
-        setState(() {
-          _cursorPosition = null;
-        });
-      },
-      child: GestureDetector(
-        onTapDown: (details) {
-          final box = context.findRenderObject() as RenderBox;
-          provider.addPoint(details.localPosition, box.size);
-        },
-        child: Stack(
-          children: [
-            Image.network(widget.imageUrl, fit: BoxFit.contain),
-            CustomPaint(
-              size: Size.infinite,
-              painter: _DirectionsPainter(
-                directions: provider.directions,
-                currentColor: provider.currentColor,
-                cursorPosition: _cursorPosition,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (_imageSize == null) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        final scale = math.min(
+          constraints.maxWidth / _imageSize!.width,
+          constraints.maxHeight / _imageSize!.height,
+        );
+        final width = _imageSize!.width * scale;
+        final height = _imageSize!.height * scale;
+        final canvasSize = Size(width, height);
+
+        return Center(
+          child: SizedBox(
+            width: width,
+            height: height,
+            child: MouseRegion(
+              onHover: (event) {
+                setState(() {
+                  _cursorPosition = event.localPosition;
+                });
+              },
+              onExit: (_) {
+                setState(() {
+                  _cursorPosition = null;
+                });
+              },
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTapDown: (details) {
+                  provider.addPoint(details.localPosition, canvasSize);
+                },
+                child: Stack(
+                  children: [
+                    Positioned.fill(
+                      child: Image.network(
+                        widget.imageUrl,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                    Positioned.fill(
+                      child: CustomPaint(
+                        painter: _DirectionsPainter(
+                          directions: provider.directions,
+                          currentColor: provider.currentColor,
+                          cursorPosition: _cursorPosition,
+                          canvasSize: canvasSize,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
@@ -57,15 +115,20 @@ class _DirectionsPainter extends CustomPainter {
   final List<DirectionLine> directions;
   final Color currentColor;
   final Offset? cursorPosition;
+  final Size canvasSize;
 
   _DirectionsPainter({
     required this.directions,
     required this.currentColor,
+    required this.canvasSize,
     this.cursorPosition,
   });
 
   @override
   void paint(Canvas canvas, Size size) {
+    // Enforce painting using the exact canvas size we normalized against
+    final effectiveSize = canvasSize;
+
     for (final d in directions) {
       final paint = Paint()
         ..color = d.color
@@ -79,8 +142,8 @@ class _DirectionsPainter extends CustomPainter {
         final p1 = d.points[i];
         final p2 = d.points[i + 1];
         canvas.drawLine(
-          Offset(p1.dx * size.width, p1.dy * size.height),
-          Offset(p2.dx * size.width, p2.dy * size.height),
+          Offset(p1.dx * effectiveSize.width, p1.dy * effectiveSize.height),
+          Offset(p2.dx * effectiveSize.width, p2.dy * effectiveSize.height),
           paint,
         );
       }
@@ -91,7 +154,7 @@ class _DirectionsPainter extends CustomPainter {
 
       for (final p in d.points) {
         canvas.drawCircle(
-          Offset(p.dx * size.width, p.dy * size.height),
+          Offset(p.dx * effectiveSize.width, p.dy * effectiveSize.height),
           4,
           pointPaint,
         );
@@ -111,7 +174,7 @@ class _DirectionsPainter extends CustomPainter {
 
         final lastPoint = activeDir.points.last;
         canvas.drawLine(
-          Offset(lastPoint.dx * size.width, lastPoint.dy * size.height),
+          Offset(lastPoint.dx * effectiveSize.width, lastPoint.dy * effectiveSize.height),
           cursorPosition!,
           previewPaint,
         );
