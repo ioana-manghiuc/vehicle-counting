@@ -20,15 +20,111 @@ class AppLocalizations {
       Localizations.of<AppLocalizations>(context, AppLocalizations);
 
   Future<bool> load() async {
+    // Load main app strings
     final jsonString = await rootBundle
         .loadString('assets/localization/app_${locale.languageCode}.arb');
     final Map<String, dynamic> jsonMap = json.decode(jsonString);
     _localizedStrings =
         jsonMap.map((key, value) => MapEntry(key, value.toString()));
+    
+    // Load user manual strings
+    try {
+      final userManualString = await rootBundle
+          .loadString('assets/localization/user_manual_${locale.languageCode}.arb');
+      final Map<String, dynamic> userManualMap = json.decode(userManualString);
+      _localizedStrings.addAll(
+        userManualMap.map((key, value) => MapEntry(key, value.toString())),
+      );
+    } catch (e) {
+      // If user manual file doesn't exist, continue without it
+    }
+    
+    // Load model info strings
+    try {
+      final modelInfoString = await rootBundle
+          .loadString('assets/localization/model_info_${locale.languageCode}.arb');
+      final Map<String, dynamic> modelInfoMap = json.decode(modelInfoString);
+      _localizedStrings.addAll(
+        modelInfoMap.map((key, value) => MapEntry(key, value.toString())),
+      );
+    } catch (e) {
+      // If model info file doesn't exist, continue without it
+    }
+    
     return true;
   }
 
   String translate(String key) => _localizedStrings[key] ?? '**$key**';
+
+  // Getters for all localization keys
+  String get appTitle => _localizedStrings['appTitle'] ?? 'Vehicle Counter';
+  String get uploadVideo => _localizedStrings['uploadVideo'] ?? 'Upload video';
+  String get drawDirections => _localizedStrings['drawDirections'] ?? 'Draw directions';
+  String get pickVideo => _localizedStrings['pickVideo'] ?? 'Pick Video';
+  String get addDirection => _localizedStrings['addDirection'] ?? 'Add Direction';
+  String get from => _localizedStrings['from'] ?? 'From';
+  String get to => _localizedStrings['to'] ?? 'To';
+  String get save => _localizedStrings['save'] ?? 'Save';
+  String get delete => _localizedStrings['delete'] ?? 'Delete';
+  String get sendToBackend => _localizedStrings['sendToBackend'] ?? 'Send to Backend';
+  String get locked => _localizedStrings['locked'] ?? 'Locked';
+  String get editable => _localizedStrings['editable'] ?? 'Editable';
+  String get settings => _localizedStrings['settings'] ?? 'Settings';
+  String get theme => _localizedStrings['theme'] ?? 'Theme';
+  String get language => _localizedStrings['language'] ?? 'Language';
+  String get directionLabel => _localizedStrings['directionLabel'] ?? 'Direction';
+  String get pickAColor => _localizedStrings['pickAColor'] ?? 'Pick a color';
+  String get cancel => _localizedStrings['cancel'] ?? 'Cancel';
+  String get directionError => _localizedStrings['directionError'] ?? 'Direction Error';
+  String get pleaseDrawDirection => _localizedStrings['pleaseDrawDirection'] ?? 'Please draw a direction on the canvas first.';
+  String get error => _localizedStrings['error'] ?? 'Error';
+  String get noDirectionSelected => _localizedStrings['noDirectionSelected'] ?? 'No direction selected.';
+  String get waitingForServer => _localizedStrings['waitingForServer'] ?? 'Waiting for server...';
+  String get userManual => _localizedStrings['userManual'] ?? 'User manual';
+  String get userManualIntro => _localizedStrings['userManualIntro'] ?? 'Follow these steps to get started:';
+  String get userManualStepUpload => _localizedStrings['userManualStepUpload'] ?? 'Click the canvas or upload button to select a video.';
+  String get userManualStepWait => _localizedStrings['userManualStepWait'] ?? 'Wait while the server prepares the thumbnail.';
+  String get userManualStepDraw => _localizedStrings['userManualStepDraw'] ?? 'Click to add points on the image to create direction lines, add labels, and lock them.';
+  String get userManualStepSend => _localizedStrings['userManualStepSend'] ?? 'Send the locked directions to the backend.';
+  String get userManualTip => _localizedStrings['userManualTip'] ?? 'Tip: You can change colors before drawing a new direction.';
+  
+  // Model Info getters
+  String get modelInfoTitle => _localizedStrings['modelInfoTitle'] ?? 'How to Choose the Right Model for Your Hardware';
+  String get modelYolo11n => _localizedStrings['modelYolo11n'] ?? 'YOLO11n';
+  String get modelYolo11s => _localizedStrings['modelYolo11s'] ?? 'YOLO11s';
+  String get modelYolo11m => _localizedStrings['modelYolo11m'] ?? 'YOLO11m';
+  String get modelYolo11l => _localizedStrings['modelYolo11l'] ?? 'YOLO11l';
+  String get modelYolo11xl => _localizedStrings['modelYolo11xl'] ?? 'YOLO11xl';
+  String get speedLabel => _localizedStrings['speedLabel'] ?? 'Speed:';
+  String get accuracyLabel => _localizedStrings['accuracyLabel'] ?? 'Accuracy:';
+  String get hardwareLabel => _localizedStrings['hardwareLabel'] ?? 'Hardware:';
+  String get speedFastest => _localizedStrings['speedFastest'] ?? 'Fastest';
+  String get speedFast => _localizedStrings['speedFast'] ?? 'Fast';
+  String get speedMedium => _localizedStrings['speedMedium'] ?? 'Medium';
+  String get speedSlow => _localizedStrings['speedSlow'] ?? 'Slow';
+  String get speedVerySlow => _localizedStrings['speedVerySlow'] ?? 'Very Slow';
+  String get accuracyGood => _localizedStrings['accuracyGood'] ?? 'Good';
+  String get accuracyBetter => _localizedStrings['accuracyBetter'] ?? 'Better';
+  String get accuracyVeryGood => _localizedStrings['accuracyVeryGood'] ?? 'Very Good';
+  String get accuracyExcellent => _localizedStrings['accuracyExcellent'] ?? 'Excellent';
+  String get accuracyOutstanding => _localizedStrings['accuracyOutstanding'] ?? 'Outstanding';
+  String get hardwareMinimal => _localizedStrings['hardwareMinimal'] ?? 'Minimal (suitable for edge devices, mobile, CPU)';
+  String get hardwareLow => _localizedStrings['hardwareLow'] ?? 'Low (suitable for CPU and older GPUs)';
+  String get hardwareMedium => _localizedStrings['hardwareMedium'] ?? 'Medium (suitable for modern GPUs)';
+  String get hardwareHigh => _localizedStrings['hardwareHigh'] ?? 'High (suitable for high-end GPUs)';
+  String get hardwareVeryHigh => _localizedStrings['hardwareVeryHigh'] ?? 'Very High (suitable for premium hardware)';
+  String get descriptionYolo11n => _localizedStrings['descriptionYolo11n'] ?? 'The nano model is the smallest and fastest. Use this if you have limited hardware resources or need real-time processing on mobile or IoT devices.';
+  String get descriptionYolo11s => _localizedStrings['descriptionYolo11s'] ?? 'The small model offers a good balance between speed and accuracy. Recommended for laptops with limited GPU memory (2-4GB VRAM).';
+  String get descriptionYolo11m => _localizedStrings['descriptionYolo11m'] ?? 'The medium model is the most balanced option. Recommended for laptops with dedicated GPUs (4-6GB VRAM) or desktop computers.';
+  String get descriptionYolo11l => _localizedStrings['descriptionYolo11l'] ?? 'The large model offers high accuracy with slower processing. Recommended for high-performance GPUs (8GB+ VRAM) or batch processing.';
+  String get descriptionYolo11xl => _localizedStrings['descriptionYolo11xl'] ?? 'The extra-large model provides the best accuracy but requires significant computational resources. Recommended for high-end GPUs (12GB+ VRAM) or server environments.';
+  String get recommendationsTitle => _localizedStrings['recommendationsTitle'] ?? '💡 Recommendations:';
+  String get recommendation1 => _localizedStrings['recommendation1'] ?? '• Start with YOLO11n or YOLO11s if unsure about your hardware capabilities';
+  String get recommendation2 => _localizedStrings['recommendation2'] ?? '• If processing is too slow, downgrade to a smaller model';
+  String get recommendation3 => _localizedStrings['recommendation3'] ?? '• If accuracy is not good enough, upgrade to a larger model';
+  String get recommendation4 => _localizedStrings['recommendation4'] ?? '• GPU acceleration significantly improves speed (CUDA for NVIDIA, Metal for Apple)';
+  String get tapCanvasToUpload => _localizedStrings['tapCanvasToUpload'] ?? 'Tap the canvas or button to upload a video';
+  String get modelInfoTooltip => _localizedStrings['modelInfoTooltip'] ?? 'Click for more information about models';
 }
 
 class _AppLocalizationsDelegate

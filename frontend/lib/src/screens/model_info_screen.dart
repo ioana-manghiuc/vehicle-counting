@@ -6,11 +6,11 @@ class ModelInfoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('How to Choose the Right Model for Your Hardware'),
+        title: Text(localizations.modelInfoTitle),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -19,82 +19,74 @@ class ModelInfoScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildModelCard(
-              model: 'YOLO11n',
-              speed: 'Fastest',
-              accuracy: 'Good',
-              hardwareReq: 'Minimal (suitable for edge devices, mobile, CPU)',
-              description:
-                  'The nano model is the smallest and fastest. Use this if you have limited hardware resources or need real-time processing on mobile or IoT devices.',
+              context: context,
+              model: localizations.modelYolo11n,
+              speed: localizations.speedFastest,
+              accuracy: localizations.accuracyGood,
+              hardwareReq: localizations.hardwareMinimal,
+              description: localizations.descriptionYolo11n,
             ),
             const SizedBox(height: 16),
             _buildModelCard(
-              model: 'YOLO11s',
-              speed: 'Fast',
-              accuracy: 'Better',
-              hardwareReq: 'Low (suitable for CPU and older GPUs)',
-              description:
-                  'The small model offers a good balance between speed and accuracy. Recommended for laptops with limited GPU memory (2-4GB VRAM).',
+              context: context,
+              model: localizations.modelYolo11s,
+              speed: localizations.speedFast,
+              accuracy: localizations.accuracyBetter,
+              hardwareReq: localizations.hardwareLow,
+              description: localizations.descriptionYolo11s,
             ),
             const SizedBox(height: 16),
             _buildModelCard(
-              model: 'YOLO11m',
-              speed: 'Medium',
-              accuracy: 'Very Good',
-              hardwareReq: 'Medium (suitable for modern GPUs)',
-              description:
-                  'The medium model is the most balanced option. Recommended for laptops with dedicated GPUs (4-6GB VRAM) or desktop computers.',
+              context: context,
+              model: localizations.modelYolo11m,
+              speed: localizations.speedMedium,
+              accuracy: localizations.accuracyVeryGood,
+              hardwareReq: localizations.hardwareMedium,
+              description: localizations.descriptionYolo11m,
             ),
             const SizedBox(height: 16),
             _buildModelCard(
-              model: 'YOLO11l',
-              speed: 'Slow',
-              accuracy: 'Excellent',
-              hardwareReq: 'High (suitable for high-end GPUs)',
-              description:
-                  'The large model offers high accuracy with slower processing. Recommended for high-performance GPUs (8GB+ VRAM) or batch processing.',
+              context: context,
+              model: localizations.modelYolo11l,
+              speed: localizations.speedSlow,
+              accuracy: localizations.accuracyExcellent,
+              hardwareReq: localizations.hardwareHigh,
+              description: localizations.descriptionYolo11l,
             ),
             const SizedBox(height: 16),
             _buildModelCard(
-              model: 'YOLO11xl',
-              speed: 'Very Slow',
-              accuracy: 'Outstanding',
-              hardwareReq: 'Very High (suitable for premium hardware)',
-              description:
-                  'The extra-large model provides the best accuracy but requires significant computational resources. Recommended for high-end GPUs (12GB+ VRAM) or server environments.',
+              context: context,
+              model: localizations.modelYolo11xl,
+              speed: localizations.speedVerySlow,
+              accuracy: localizations.accuracyOutstanding,
+              hardwareReq: localizations.hardwareVeryHigh,
+              description: localizations.descriptionYolo11xl,
             ),
             const SizedBox(height: 32),
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.blue.withOpacity(0.1),
+                color: const Color.fromARGB(90, 33, 149, 243),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    '💡 Recommendations:',
-                    style: TextStyle(
+                  Text(
+                    localizations.recommendationsTitle,
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 8),
-                  const Text(
-                    '• Start with YOLO11n or YOLO11s if unsure about your hardware capabilities',
-                  ),
+                  Text(localizations.recommendation1),
                   const SizedBox(height: 8),
-                  const Text(
-                    '• If processing is too slow, downgrade to a smaller model',
-                  ),
+                  Text(localizations.recommendation2),
                   const SizedBox(height: 8),
-                  const Text(
-                    '• If accuracy is not good enough, upgrade to a larger model',
-                  ),
+                  Text(localizations.recommendation3),
                   const SizedBox(height: 8),
-                  const Text(
-                    '• GPU acceleration significantly improves speed (CUDA for NVIDIA, Metal for Apple)',
-                  ),
+                  Text(localizations.recommendation4),
                 ],
               ),
             ),
@@ -105,12 +97,15 @@ class ModelInfoScreen extends StatelessWidget {
   }
 
   Widget _buildModelCard({
+    required BuildContext context,
     required String model,
     required String speed,
     required String accuracy,
     required String hardwareReq,
     required String description,
   }) {
+    final localizations = AppLocalizations.of(context)!;
+    
     return Card(
       elevation: 2,
       child: Padding(
@@ -129,15 +124,15 @@ class ModelInfoScreen extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: _buildInfoRow('Speed:', speed),
+                  child: _buildInfoRow(localizations.speedLabel, speed),
                 ),
                 Expanded(
-                  child: _buildInfoRow('Accuracy:', accuracy),
+                  child: _buildInfoRow(localizations.accuracyLabel, accuracy),
                 ),
               ],
             ),
             const SizedBox(height: 8),
-            _buildInfoRow('Hardware:', hardwareReq),
+            _buildInfoRow(localizations.hardwareLabel, hardwareReq),
             const SizedBox(height: 12),
             Text(
               description,

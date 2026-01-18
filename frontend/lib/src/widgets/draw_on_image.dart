@@ -126,7 +126,6 @@ class _DirectionsPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    // Enforce painting using the exact canvas size we normalized against
     final effectiveSize = canvasSize;
 
     for (final d in directions) {

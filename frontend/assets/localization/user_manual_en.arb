@@ -1,0 +1,9 @@
+{
+  "userManualTitle": "User Manual",
+  "userManualIntro": "Follow these steps to get started:",
+  "userManualStepUpload": "Click the canvas or upload button to select a video.",
+  "userManualStepWait": "Wait while the server prepares the thumbnail.",
+  "userManualStepDraw": "Click to add points on the image to create direction lines, add labels, and lock them.",
+  "userManualStepSend": "Send the locked directions to the backend.",
+  "userManualTip": "Tip: You can change colors before drawing a new direction."
+}

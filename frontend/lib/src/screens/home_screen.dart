@@ -69,10 +69,7 @@ class HomeScreen extends StatelessWidget {
                                           );
                                         }
                                       : null,
-                                  child: Text(
-                                    localizations.translate('sendToBackend') ??
-                                        'Send to Backend',
-                                  ),
+                                  child: Text(localizations.sendToBackend),
                                 ),
                               ),
                             ],
@@ -106,7 +103,7 @@ class _CanvasArea extends StatelessWidget {
 
     if (viewModel.video?.thumbnailUrl != null && !viewModel.isLoading) {
       return Container(
-        color: theme.colorScheme.surfaceVariant.withOpacity(0.15),
+        color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.15),
         child: DrawOnImage(imageUrl: viewModel.video!.thumbnailUrl!),
       );
     }
@@ -114,7 +111,7 @@ class _CanvasArea extends StatelessWidget {
     return GestureDetector(
       onTap: viewModel.isLoading ? null : onPick,
       child: Container(
-        color: theme.colorScheme.surfaceVariant.withOpacity(0.25),
+        color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.25),
         child: Stack(
           alignment: Alignment.center,
           children: [
@@ -135,7 +132,7 @@ class _CanvasArea extends StatelessWidget {
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    localizations.translate('waitingForServer'),
+                    localizations.waitingForServer,
                     style: theme.textTheme.bodyMedium,
                     textAlign: TextAlign.center,
                   ),
@@ -162,12 +159,11 @@ class _CanvasArea extends StatelessWidget {
                       ),
                     ),
                     onPressed: viewModel.isLoading ? null : onPick,
-                    child:
-                        Text(localizations.translate('pickVideo') ?? 'Upload Video'),
+                    child: Text(localizations.pickVideo),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Tap the canvas or button to upload a video',
+                    localizations.tapCanvasToUpload,
                     style: theme.textTheme.bodyMedium,
                     textAlign: TextAlign.center,
                   ),
@@ -189,7 +185,7 @@ class _DirectionsPlaceholder extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceVariant.withOpacity(0.2),
+        color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.2),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: theme.colorScheme.outlineVariant),
       ),

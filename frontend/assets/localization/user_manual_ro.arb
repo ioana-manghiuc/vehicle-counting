@@ -1,0 +1,9 @@
+{
+  "userManualTitle": "Manual de Utilizare",
+  "userManualIntro": "Urmați acești pași pentru a începe:",
+  "userManualStepUpload": "Faceți clic pe canvas sau pe butonul de încărcare pentru a selecta un videoclip.",
+  "userManualStepWait": "Așteptați în timp ce serverul pregătește miniatura.",
+  "userManualStepDraw": "Faceți clic pentru a adăuga puncte pe imagine pentru a crea linii de direcție, adăugați etichete și blocați-le.",
+  "userManualStepSend": "Trimiteți direcțiile blocate către backend.",
+  "userManualTip": "Sfat: Puteți schimba culorile înainte de a desena o nouă direcție."
+}

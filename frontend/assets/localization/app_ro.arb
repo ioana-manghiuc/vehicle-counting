@@ -32,5 +32,7 @@
   "userManualStepWait": "Așteaptă ca serverul să pregătească miniatura.",
   "userManualStepDraw": "Apasă pentru a adăuga puncte pe imagine și a crea linii de direcție, adaugă etichete și blochează-le.",
   "userManualStepSend": "Trimite direcțiile blocate către backend.",
-  "userManualTip": "Sfat: Poți schimba culorile înainte să desenezi o direcție nouă."
+  "userManualTip": "Sfat: Poți schimba culorile înainte să desenezi o direcție nouă.",
+  "tapCanvasToUpload": "Atinge canvasul sau butonul pentru a încărca un videoclip",
+  "modelInfoTooltip": "Faceți clic pentru mai multe informații despre modele"
 }

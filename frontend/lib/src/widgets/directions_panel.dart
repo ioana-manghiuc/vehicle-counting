@@ -48,14 +48,13 @@ class DirectionsPanel extends StatelessWidget {
           const SizedBox(height: 6),
 
           Tooltip(
-            message: 'Click for more information about models',
+            message: localizations!.modelInfoTooltip,
             waitDuration: const Duration(milliseconds: 300),
             child: ListTile(
               dense: true,
               contentPadding: const EdgeInsets.symmetric(horizontal: 4),
               title: Text(
-                localizations?.translate('How to choose the right version?') ??
-                    'How to choose the right version?',
+                localizations.translate('How to choose the right version?'),
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       decoration: TextDecoration.underline,
                       color: Theme.of(context).colorScheme.primary,
@@ -81,9 +80,7 @@ class DirectionsPanel extends StatelessWidget {
 
           ElevatedButton(
             onPressed: () => provider.startNewDirection(),
-            child: Text(
-              localizations?.translate('addDirection') ?? 'Add Direction',
-            ),
+            child: Text(localizations.addDirection),
           ),
         ],
       ),
@@ -146,17 +143,13 @@ class _DirectionCardState extends State<_DirectionCard> {
                   ),
                 ),
                 const SizedBox(width: 8),
-                Text(
-                  direction.isLocked
-                      ? localizations?.translate('locked') ?? 'Locked'
-                      : localizations?.translate('editable') ?? 'Editable',
-                ),
+                Text(direction.isLocked ? localizations!.locked : localizations!.editable),
               ],
             ),
 
             TextField(
               decoration: InputDecoration(
-                labelText: localizations?.translate('from') ?? 'From',
+                labelText: localizations.from,
               ),
               controller: _fromController,
               onChanged: (v) => provider.updateLabels(v, _toController.text),
@@ -164,7 +157,7 @@ class _DirectionCardState extends State<_DirectionCard> {
 
             TextField(
               decoration: InputDecoration(
-                labelText: localizations?.translate('to') ?? 'To',
+                labelText: localizations.to,
               ),
               controller: _toController,
               onChanged: (v) => provider.updateLabels(_fromController.text, v),
@@ -176,7 +169,7 @@ class _DirectionCardState extends State<_DirectionCard> {
                   onPressed: !direction.isLocked
                       ? () => _saveDirection(context, provider)
                       : null,
-                  child: Text(localizations?.translate('save') ?? 'Save'),
+                  child: Text(localizations.save),
                 ),
                 IconButton(
                   icon: const Icon(Icons.delete),
@@ -199,7 +192,7 @@ class _DirectionCardState extends State<_DirectionCard> {
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        title: Text(localizations?.translate('pickAColor') ?? 'Pick a color'),
+        title: Text(localizations!.pickAColor),
         content: ColorPicker(
           pickerColor: direction.color,
           onColorChanged: (Color color) {
@@ -209,14 +202,14 @@ class _DirectionCardState extends State<_DirectionCard> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(localizations?.translate('cancel') ?? 'Cancel'),
+            child: Text(localizations.cancel),
           ),
           ElevatedButton(
             onPressed: () {
               provider.updateColor(tempColor);
               Navigator.of(context).pop();
             },
-            child: Text(localizations?.translate('save') ?? 'Save'),
+            child: Text(localizations.save),
           ),
         ],
       ),
@@ -230,8 +223,8 @@ class _DirectionCardState extends State<_DirectionCard> {
     if (currentDirection == null) {
       _showErrorDialog(
         context,
-        localizations?.translate('error') ?? ErrorStrings.errorTitle,
-        localizations?.translate('noDirectionSelected') ??
+        localizations!.error,
+        localizations.noDirectionSelected ??
             ErrorStrings.noDirectionSelected,
       );
       return;
@@ -240,7 +233,7 @@ class _DirectionCardState extends State<_DirectionCard> {
     if (currentDirection.points.length < 2) {
       _showErrorDialog(
         context,
-        localizations?.translate('directionError') ??
+        localizations!.directionError ??
             ErrorStrings.directionErrorTitle,
         ErrorStrings.minimumTwoPoints,
       );
@@ -250,7 +243,7 @@ class _DirectionCardState extends State<_DirectionCard> {
     if (_fromController.text.isEmpty || _toController.text.isEmpty) {
       _showErrorDialog(
         context,
-        localizations?.translate('error') ?? ErrorStrings.errorTitle,
+        localizations!.error,
         ErrorStrings.emptyFromLocation,
       );
       return;

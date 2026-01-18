@@ -32,5 +32,7 @@
   "userManualStepWait": "Wait while the server prepares the thumbnail.",
   "userManualStepDraw": "Click to add points on the image to create direction lines, add labels, and lock them.",
   "userManualStepSend": "Send the locked directions to the backend.",
-  "userManualTip": "Tip: You can change colors before drawing a new direction."
+  "userManualTip": "Tip: You can change colors before drawing a new direction.",
+  "tapCanvasToUpload": "Tap the canvas or button to upload a video",
+  "modelInfoTooltip": "Click for more information about models"
 }

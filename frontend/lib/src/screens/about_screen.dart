@@ -17,38 +17,32 @@ class AboutScreen extends StatelessWidget {
         child: ListView(
           children: [
             Text(
-              localizations?.translate('userManualIntro') ??
-                  'Follow these steps to get started:',
+              localizations!.userManualIntro,
               style: theme.textTheme.titleLarge,
             ),
             const SizedBox(height: 12),
             _StepRow(
               number: '1',
-              text: localizations?.translate('userManualStepUpload') ??
-                  'Click the canvas or upload button to select a video.',
+              text: localizations.userManualStepUpload,
             ),
             _StepRow(
               number: '2',
-              text: localizations?.translate('userManualStepWait') ??
-                  'Wait while the server prepares the thumbnail.',
+              text: localizations.userManualStepWait,
             ),
             _StepRow(
               number: '3',
-              text: localizations?.translate('userManualStepDraw') ??
-                  'Draw directions on the image, add labels, and lock them.',
+              text: localizations.userManualStepDraw,
             ),
             _StepRow(
               number: '4',
-              text: localizations?.translate('userManualStepSend') ??
-                  'Send the locked directions to the backend.',
+              text: localizations.userManualStepSend,
             ),
             const SizedBox(height: 16),
             Card(
               child: Padding(
                 padding: const EdgeInsets.all(12),
                 child: Text(
-                  localizations?.translate('userManualTip') ??
-                      'Tip: You can change colors before drawing a new direction.',
+                  localizations.userManualTip,
                   style: theme.textTheme.bodyMedium,
                 ),
               ),

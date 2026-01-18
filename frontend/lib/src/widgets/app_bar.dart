@@ -36,13 +36,12 @@ class _AppBarWidgetState extends State<AppBarWidget> {
   Widget build(BuildContext context) {
     final themeProvider = context.watch<ThemeProvider>();
     final languageProvider = context.watch<LanguageProvider>();
-    final localizations = AppLocalizations.of(context);
 
     return AppBar(
-      title: Text(localizations?.translate(widget.titleKey) ?? widget.titleKey),
+      title: Text(AppLocalizations.of(context)!.translate(widget.titleKey)),
       actions: [
         IconButton(
-          tooltip: localizations?.translate('userManual') ?? 'User manual',
+          tooltip: AppLocalizations.of(context)!.userManual,
           icon: const Icon(Icons.info_outline),
           onPressed: () {
             Navigator.of(context).pushNamed('/about');
@@ -93,7 +92,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
             onChanged: (String? value) {
               if (value != null) {
                 languageProvider.setLanguage(value);
-                _focusNode.unfocus(); // Close dropdown
+                _focusNode.unfocus(); 
               }
             },
           ),
