@@ -19,7 +19,6 @@ class _DirectionCardState extends State<DirectionCard> {
   late TextEditingController _fromController;
   late TextEditingController _toController;
   final Map<String, TextEditingController> _coordinateControllers = {};
-  bool isChecked = false;
 
   @override
   void initState() {
@@ -117,7 +116,7 @@ class _DirectionCardState extends State<DirectionCard> {
               if (direction.points.isNotEmpty) ...[
                 const SizedBox(height: 8),
                 Text(
-                  'Lines (${(direction.points.length / 2).floor()}):',
+                  localizations.linesCount((direction.points.length / 2).floor()),
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -136,33 +135,36 @@ class _DirectionCardState extends State<DirectionCard> {
                     p1Index,
                     p2Index,
                     isSelected,
+                    localizations,
                   );
                 }),
               ],
               
               Row(
                 children: [
-                  Checkbox(
-                    value: isChecked,
-                    onChanged: isSelected
-                        ? (bool? value) {
-                            setState(() => isChecked = value ?? false);
-                          }
-                        : null,
-                  ),
-                  Expanded(
-                    child: Text(
-                      localizations.translate('multipleLinesDirection'),
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
                   TextButton(
                     onPressed: isSelected
-                        ? () => provider.lockSelectedDirection()
+                        ? () {
+                            if (!direction.canLock) {
+                              showDialog(
+                                context: context,
+                                builder: (_) => AlertDialog(
+                                  title: Text(localizations.directionError),
+                                  content: Text(
+                                    localizations.labelsAndLineRequired,
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () => Navigator.of(context).pop(),
+                                      child: Text(localizations.translate('ok') == '**ok**' ? 'OK' : localizations.translate('ok')),
+                                    ),
+                                  ],
+                                ),
+                              );
+                              return;
+                            }
+                            provider.lockSelectedDirection();
+                          }
                         : null,
                     child: Text(localizations.save),
                   ),
@@ -187,6 +189,7 @@ class _DirectionCardState extends State<DirectionCard> {
     int p1Index,
     int p2Index,
     bool isSelected,
+    AppLocalizations localizations
   ) {
     final p1 = direction.points[p1Index];
     final p2 = direction.points[p2Index];
@@ -205,7 +208,7 @@ class _DirectionCardState extends State<DirectionCard> {
             children: [
               Expanded(
                 child: Text(
-                  'Line ${lineIndex + 1}',
+                  localizations.lineNumber(lineIndex + 1),
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),

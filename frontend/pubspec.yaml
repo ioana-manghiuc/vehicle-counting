@@ -24,6 +24,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   navigator: ^1.1.1
   uuid: ^4.5.2
+  shared_preferences: ^2.5.3
 
 dev_dependencies:
   flutter_test:
@@ -37,3 +38,9 @@ flutter:
   assets:
     - assets/localization/
     - assets/images/
+
+l10n:
+  arb-dir: assets/localization
+  template-arb-file: app_en.arb
+  output-localization-file: app_localizations.dart
+  output-dir: lib/src/localization

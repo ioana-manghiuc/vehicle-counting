@@ -47,7 +47,7 @@ class DirectionsPanel extends StatelessWidget {
               dense: true,
               contentPadding: const EdgeInsets.symmetric(horizontal: 4),
               title: Text(
-                localizations.translate('howToChooseModel'),
+                localizations.howToChooseModel,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       decoration: TextDecoration.underline,
                       color: Theme.of(context).colorScheme.primary,
@@ -75,14 +75,14 @@ class DirectionsPanel extends StatelessWidget {
 
           if (provider.directions.isNotEmpty) ...[
             ElevatedButton(
-              onPressed: () => saveIntersectionToFile(context, provider, MediaQuery.of(context).size),
+              onPressed: () => showSaveIntersectionDialog(context, provider, MediaQuery.of(context).size, localizations),
               child: Text(localizations.saveIntersection),
             ),
             const SizedBox(height: 8),
           ],
 
           ElevatedButton(
-            onPressed: () => showLoadIntersectionDialog(context),
+            onPressed: () => showLoadIntersectionDialog(context, provider, localizations),
             child: Text(localizations.loadIntersection),
           ),
 

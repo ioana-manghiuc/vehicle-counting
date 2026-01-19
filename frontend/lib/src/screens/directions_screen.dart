@@ -32,7 +32,7 @@ class _DirectionsScreenBody extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            flex: 4,
+            flex: 6,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: DrawOnImage(imageUrl: video.thumbnailUrl!),
@@ -40,7 +40,7 @@ class _DirectionsScreenBody extends StatelessWidget {
           ),
           const SizedBox(width: 12),
           Expanded(
-            flex: 1,
+            flex: 2,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: Container(
@@ -54,6 +54,7 @@ class _DirectionsScreenBody extends StatelessWidget {
               ),
             ),
           ),
+
         ],
       ),
     );

@@ -87,7 +87,15 @@ class AppLocalizations {
   String get userManualStepSend => _localizedStrings['userManualStepSend'] ?? 'Send the locked directions to the backend.';
   String get userManualTip => _localizedStrings['userManualTip'] ?? 'Tip: You can change colors before drawing a new direction.';
   String get uploadVideoToStartDrawingDirections => _localizedStrings['uploadVideoToStartDrawingDirections'] ?? 'Upload a video to start drawing directions';
-  
+  String get directionWarning => _localizedStrings['directionWarning'] ?? 'Direction must have at least 2 points';
+  String get intersectionName => _localizedStrings['intersectionName'] ?? 'Intersection Name';
+  String get intersectionNameHint => _localizedStrings['intersectionNameHint'] ?? 'e.g. Main St – Morning';
+  String get noSavedIntersectionsFound => _localizedStrings['noSavedIntersectionsFound'] ?? 'No saved intersections found.';
+  String get close => _localizedStrings['close'] ?? 'Close';
+  String get appDescription => _localizedStrings['appDescription'] ?? 'Direction-aware vehicle counting with quick drawing and YOLO-ready pipelines.';
+  String get results => _localizedStrings['results'] ?? 'Results';
+  String get howToChooseModel => _localizedStrings['howToChooseModel'] ?? 'How to Choose the Right Model for Your Hardware';
+ 
   // Model Info getters
   String get modelInfoTitle => _localizedStrings['modelInfoTitle'] ?? 'How to Choose the Right Model for Your Hardware';
   String get modelYolo11n => _localizedStrings['modelYolo11n'] ?? 'YOLO11n';
@@ -126,6 +134,14 @@ class AppLocalizations {
   String get tapCanvasToUpload => _localizedStrings['tapCanvasToUpload'] ?? 'Tap the canvas or button to upload a video';
   String get modelInfoTooltip => _localizedStrings['modelInfoTooltip'] ?? 'Click for more information about models';
   String get startScreenWelcome => _localizedStrings['startScreenWelcome'] ?? 'Welcome to VCount!';
+  String get labelsAndLineRequired => _localizedStrings['labelsAndLineRequired'] ?? 'From / To labels required and draw at least one line.';
+  String get line => _localizedStrings['line'] ?? 'Line';
+  String get lines => _localizedStrings['lines'] ?? 'Lines';
+  
+  String lineNumber(int number) => '${line} ${number}';
+  String linesCount(int count) => '${lines} (${count}):';
+  String intersectionSaved(String name) => _localizedStrings['intersectionSaved']?.replaceAll('{name}', name) ?? 'Intersection "$name" saved in intersections folder!';
+  String intersectionLoaded(String name) => _localizedStrings['intersectionLoaded']?.replaceAll('{name}', name) ?? 'Intersection "$name" loaded!';
 
 }
 

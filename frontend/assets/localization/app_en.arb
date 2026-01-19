@@ -41,5 +41,33 @@
   "startScreenWelcome": "Welcome to VCount!",
   "resultsTitle": "Results",
   "back": "Back",
-  "uploadVideoToStartDrawingDirections": "Upload a video to start drawing directions"
+  "uploadVideoToStartDrawingDirections": "Upload a video to start drawing directions",
+  "directionWarning": "Direction must have at least 2 points",
+  "intersectionName": "Intersection Name",
+  "intersectionNameHint": "e.g. Baker St – Paddington St",
+  "noSavedIntersectionsFound": "No saved intersections found.",
+  "close": "Close",
+  "saveIntersection": "Save Intersection",
+  "loadIntersection": "Load Intersection",
+  "appDescription": "Direction-aware vehicle counting with quick drawing and YOLO-ready pipelines.",
+  "intersectionSaved": "Intersection \"{name}\" saved in intersections folder!",
+  "howToChooseModel": "How to Choose the Right Model for Your Hardware",
+  "@intersectionSaved": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "intersectionLoaded": "Intersection \"{name}\" loaded!",
+  "@intersectionLoaded": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "labelsAndLineRequired": "From / To labels required and draw at least one line.",
+  "line": "Line",
+  "lines": "Lines"
 }

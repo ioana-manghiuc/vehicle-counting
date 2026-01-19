@@ -41,5 +41,33 @@
   "startScreenWelcome": "Bine ai venit la VCount!",
   "resultsTitle": "Rezultate",
   "back": "Înapoi",
-  "uploadVideoToStartDrawingDirections": "Încarcă un video pentru a începe să desenezi direcții"
+  "uploadVideoToStartDrawingDirections": "Încarcă un video pentru a începe să desenezi direcții",
+  "directionWarning": "Direcția trebuie să aibă cel puțin 2 puncte",
+  "intersectionName": "Numele Intersecției",
+  "intersectionNameHint": "ex. Str. Iuliu Maniu – Str. Vlad Țepeș",
+  "noSavedIntersectionsFound": "Nu s-au găsit intersecții salvate.",
+  "close": "Închide",
+  "saveIntersection": "Salvează Intersecție",
+  "loadIntersection": "Încarcă Intersecție",
+  "appDescription": "Numărare de vehicule cu conștientizare direcțională, desen rapid și pipeline-uri pregătite pentru YOLO.",
+  "intersectionSaved": "Intersecția \"{name}\" a fost salvată în dosarul de intersecții!",
+  "howToChooseModel": "Cum să alegi versiunea YOLO11 potrivită?",
+  "@intersectionSaved": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "intersectionLoaded": "Intersecția \"{name}\" a fost încărcată!",
+  "@intersectionLoaded": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "labelsAndLineRequired": "Etichetele De la / Către sunt necesare și desenează cel puțin o linie.",
+  "line": "Linie",
+  "lines": "Linii"
 }

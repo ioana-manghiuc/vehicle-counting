@@ -1,76 +1,129 @@
 import 'dart:convert';
 import 'dart:io';
-
-import 'package:flutter/material.dart'; // <--- needed
-import 'package:provider/provider.dart';
-import 'package:file_picker/file_picker.dart';
-
+import 'package:flutter/material.dart';
+import 'package:frontend/src/localization/app_localizations.dart';
+import 'package:path_provider/path_provider.dart';
 import '../providers/directions_provider.dart';
-import '../models/direction_line.dart';
 
-Future<void> saveIntersectionToFile(
-    BuildContext context, DirectionsProvider provider, Size canvasSize) async {
+Future<void> showSaveIntersectionDialog(
+  BuildContext context,
+  DirectionsProvider provider,
+  Size canvasSize,
+  AppLocalizations localizations,
+) async {
   final nameController = TextEditingController();
 
   await showDialog(
     context: context,
     barrierDismissible: false,
+    builder: (_) => StatefulBuilder(
+      builder: (context, setState) => AlertDialog(
+        title: Text(localizations.saveIntersection),
+        content: TextField(
+          controller: nameController,
+          autofocus: true,
+          onChanged: (_) => setState(() {}),
+          decoration: InputDecoration(
+            labelText: localizations.intersectionName,
+            hintText: localizations.intersectionNameHint,
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(localizations.cancel),
+          ),
+          ElevatedButton(
+            onPressed: nameController.text.trim().isEmpty ? null : () async {
+              final name = nameController.text.trim();
+
+              final dir = await getApplicationDocumentsDirectory();
+              final intersectionsDir = Directory('${dir.path}/intersections');
+
+              if (!intersectionsDir.existsSync()) {
+                intersectionsDir.createSync(recursive: true);
+              }
+
+              final filePath = '${intersectionsDir.path}/$name.json';
+              final data = provider.serializeIntersection(name, canvasSize);
+              final file = File(filePath);
+              await file.writeAsString(jsonEncode(data));
+
+              Navigator.pop(context);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(localizations.intersectionSaved(name))),
+              );
+            },
+            child: const Text('Save'),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+Future<void> showLoadIntersectionDialog(
+  BuildContext context,
+  DirectionsProvider provider,
+  AppLocalizations localizations,
+) async {
+
+  final dir = await getApplicationDocumentsDirectory();
+  final intersectionsDir = Directory('${dir.path}/intersections');
+
+  if (!intersectionsDir.existsSync()) {
+    intersectionsDir.createSync(recursive: true);
+  }
+
+  final files = intersectionsDir
+      .listSync()
+      .whereType<File>()
+      .where((f) => f.path.endsWith('.json'))
+      .toList();
+
+  if (files.isEmpty) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(localizations.noSavedIntersectionsFound)),
+    );
+    return;
+  }
+
+  await showDialog(
+    context: context,
     builder: (_) => AlertDialog(
-      title: const Text('Save Intersection'),
-      content: TextField(
-        controller: nameController,
-        autofocus: true,
-        decoration: const InputDecoration(
-          labelText: 'Intersection name',
-          hintText: 'e.g. Baker St – Melcombe St',
+      title: Text(localizations.loadIntersection),
+      content: SizedBox(
+        width: double.maxFinite,
+        child: ListView.builder(
+          shrinkWrap: true,
+          itemCount: files.length,
+          itemBuilder: (_, index) {
+            final file = files[index];
+            final name = file.uri.pathSegments.last.replaceAll('.json', '');
+            return ListTile(
+              title: Text(name),
+              subtitle: Text(file.path),
+              leading: const Icon(Icons.alt_route),
+              onTap: () async {
+                final jsonString = await file.readAsString();
+                final data = jsonDecode(jsonString);
+                provider.loadIntersectionFromData(data);
+
+                Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(localizations.intersectionLoaded(name))),
+                );
+              },
+            );
+          },
         ),
       ),
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text('Cancel'),
-        ),
-        ElevatedButton(
-          onPressed: () async {
-            final name = nameController.text.trim();
-            if (name.isEmpty) return;
-
-            String? filePath = await FilePicker.platform.saveFile(
-              dialogTitle: 'Save Intersection as JSON',
-              fileName: '$name.json',
-              type: FileType.custom,
-              allowedExtensions: ['json'],
-            );
-
-            if (filePath != null) {
-              final data = provider.serializeIntersection(name, canvasSize);
-              final file = File(filePath);
-              await file.writeAsString(jsonEncode(data));
-              Navigator.pop(context);
-            }
-          },
-          child: const Text('Save'),
+          child: Text(localizations.close),
         ),
       ],
     ),
   );
 }
-
-Future<void> showLoadIntersectionDialog(BuildContext context) async {
-  final provider = context.read<DirectionsProvider>();
-
-  String? filePath = await FilePicker.platform.pickFiles(
-    dialogTitle: 'Select Intersection JSON',
-    type: FileType.custom,
-    allowedExtensions: ['json'],
-  ).then((result) => result != null ? result.files.single.path : null);
-
-  if (filePath == null) return;
-
-  final file = File(filePath);
-  final jsonString = await file.readAsString();
-  final data = jsonDecode(jsonString);
-
-  provider.loadIntersectionFromData(data);
-}
-

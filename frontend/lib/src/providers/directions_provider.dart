@@ -207,19 +207,17 @@ class DirectionsProvider extends ChangeNotifier {
         .toList();
   }
 
-  void loadIntersectionFromData(Map<String, dynamic> data) {
-    _directions.clear();
+void loadIntersectionFromData(Map<String, dynamic> data) {
+  _directions.clear();
 
-    if (data['directions'] != null) {
-      for (final d in data['directions']) {
-        _directions.add(DirectionLine.fromJson(d));
-      }
-    }
-
-    _selected = null;
-    _active = null;
-
-    notifyListeners();
+  for (final d in data['directions']) {
+    _directions.add(DirectionLine.fromJson(d));
   }
+
+  _selected = null;
+  _active = null;
+  notifyListeners();
+}
+
 
 }

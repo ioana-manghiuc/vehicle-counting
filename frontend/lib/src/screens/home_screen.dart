@@ -40,7 +40,7 @@ class HomeScreen extends StatelessWidget {
               child: Row(
                 children: [
                   Expanded(
-                    flex: 4,
+                    flex: 6,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(12),
                       child: _CanvasArea(
@@ -52,7 +52,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   const SizedBox(width: 12),
                   Expanded(
-                    flex: 1,
+                    flex: 2,
                     child: vm.video != null && !vm.isLoading
                         ? Column(
                             children: [

@@ -7,7 +7,7 @@ class StartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return Scaffold(
       body: Container(
@@ -36,7 +36,7 @@ class StartScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      localizations?.startScreenWelcome ?? 'Welcome to VCount!',
+                      localizations.startScreenWelcome,
                       style: theme.textTheme.headlineSmall?.copyWith(
                         fontWeight: FontWeight.w800,
                         color: theme.colorScheme.onSurface,
@@ -45,7 +45,7 @@ class StartScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 12),
                     Text(
-                      'Direction-aware vehicle counting with quick drawing and YOLO-ready pipelines.',
+                      localizations.appDescription,
                       style: theme.textTheme.bodyLarge?.copyWith(
                         color: theme.colorScheme.onSurfaceVariant,
                       ),
@@ -60,7 +60,7 @@ class StartScreen extends StatelessWidget {
                         ),
                       ),
                       icon: const Icon(Icons.play_arrow_rounded),
-                      label: Text(localizations?.start ?? 'Start'),
+                      label: Text(localizations.start),
                       onPressed: () => Navigator.of(context).pushReplacementNamed('/'),
                     ),
                   ],

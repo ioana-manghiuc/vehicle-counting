@@ -1,6 +1,8 @@
 import 'dart:ui';
 import '../models/direction_model.dart';
 import '../models/point_model.dart';
+import '../localization/app_localizations.dart';
+
 class DirectionLine {
   final String id;
   final List<Offset> points;
