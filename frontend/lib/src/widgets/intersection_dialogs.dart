@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:frontend/src/localization/app_localizations.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as p;
 import '../providers/directions_provider.dart';
 
 Future<void> showSaveIntersectionDialog(
@@ -38,13 +39,13 @@ Future<void> showSaveIntersectionDialog(
               final name = nameController.text.trim();
 
               final dir = await getApplicationDocumentsDirectory();
-              final intersectionsDir = Directory('${dir.path}/intersections');
+              final intersectionsDir = Directory(p.join(dir.path, 'intersections'));
 
               if (!intersectionsDir.existsSync()) {
                 intersectionsDir.createSync(recursive: true);
               }
 
-              final filePath = '${intersectionsDir.path}/$name.json';
+              final filePath = p.join(intersectionsDir.path, '$name.json');
               final data = provider.serializeIntersection(name, canvasSize);
               final file = File(filePath);
               await file.writeAsString(jsonEncode(data));
@@ -69,7 +70,7 @@ Future<void> showLoadIntersectionDialog(
 ) async {
 
   final dir = await getApplicationDocumentsDirectory();
-  final intersectionsDir = Directory('${dir.path}/intersections');
+  final intersectionsDir = Directory(p.join(dir.path, 'intersections'));
 
   if (!intersectionsDir.existsSync()) {
     intersectionsDir.createSync(recursive: true);
