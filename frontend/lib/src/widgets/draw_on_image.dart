@@ -215,7 +215,7 @@ class _DirectionsPainter extends CustomPainter {
                   ? textPainter.width
                   : textPainter.height) /
               2 +
-              4;
+              2;
 
           final badgeBg = Paint()
             ..color = Colors.black.withValues(alpha: 0.7)

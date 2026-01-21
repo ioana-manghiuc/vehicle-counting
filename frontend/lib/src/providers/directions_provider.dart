@@ -3,6 +3,7 @@ import 'package:uuid/uuid.dart';
 import '../models/direction.dart';
 import '../models/line_model.dart';
 import 'package:hive/hive.dart';
+import 'dart:io';
 
 class DirectionsProvider extends ChangeNotifier {
     final List<Direction> _directions = [];
@@ -234,5 +235,12 @@ class DirectionsProvider extends ChangeNotifier {
     _selected = null;
     _active = null;
     notifyListeners();
+  }
+
+  Future<void> deleteIntersection(String filePath) async {
+    final file = File(filePath);
+    if (await file.exists()) {
+      await file.delete();
+    }
   }
 }

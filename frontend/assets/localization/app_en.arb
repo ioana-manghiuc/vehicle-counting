@@ -68,6 +68,14 @@
       }
     }
   },
+  "intersectionDeleted": "Intersection \"{name}\" deleted!",
+  "@intersectionDeleted": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "labelsAndLineRequired": "From / To labels required and draw at least one line.",
   "line": "Line",
   "lines": "Lines",

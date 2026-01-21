@@ -68,6 +68,14 @@
       }
     }
   },
+  "intersectionDeleted": "Intersecția \"{name}\" a fost ștearsă!",
+  "@intersectionDeleted": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "labelsAndLineRequired": "Etichetele De la / Către sunt necesare și desenează cel puțin o linie.",
   "line": "Linie",
   "lines": "Linii",

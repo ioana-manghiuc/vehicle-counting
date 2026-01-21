@@ -143,6 +143,7 @@ class AppLocalizations {
   String linesCount(int count) => '${lines} (${count}):';
   String intersectionSaved(String name) => _localizedStrings['intersectionSaved']?.replaceAll('{name}', name) ?? 'Intersection "$name" saved in intersections folder!';
   String intersectionLoaded(String name) => _localizedStrings['intersectionLoaded']?.replaceAll('{name}', name) ?? 'Intersection "$name" loaded!';
+  String intersectionDeleted(String name) => _localizedStrings['intersectionDeleted']?.replaceAll('{name}', name) ?? 'Intersection "$name" deleted!';
   String lineWithNumber(int number) => _localizedStrings['lineWithNumber']?.replaceAll('{number}', number.toString()) ?? 'Line {number}';
   String exitLineLabel(int number) => _localizedStrings['exitLineLabel']?.replaceAll('{number}', number.toString()) ?? 'Exit Line {number}';
   String entryLineLabel(int number) => _localizedStrings['entryLineLabel']?.replaceAll('{number}', number.toString()) ?? 'Entry Line {number}';

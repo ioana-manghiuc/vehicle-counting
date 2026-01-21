@@ -90,40 +90,54 @@ Future<void> showLoadIntersectionDialog(
 
   await showDialog(
     context: context,
-    builder: (_) => AlertDialog(
-      title: Text(localizations.loadIntersection),
-      content: SizedBox(
-        width: double.maxFinite,
-        child: ListView.builder(
-          shrinkWrap: true,
-          itemCount: files.length,
-          itemBuilder: (_, index) {
-            final file = files[index];
-            final name = file.uri.pathSegments.last.replaceAll('.json', '');
-            return ListTile(
-              title: Text(name),
-              subtitle: Text(file.path),
-              leading: const Icon(Icons.alt_route),
-              onTap: () async {
-                final jsonString = await file.readAsString();
-                final data = jsonDecode(jsonString);
-                provider.loadIntersectionFromData(data);
+    builder: (_) => StatefulBuilder(
+      builder: (context, setState) => AlertDialog(
+        title: Text(localizations.loadIntersection),
+        content: SizedBox(
+          width: double.maxFinite,
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: files.length,
+            itemBuilder: (_, index) {
+              final file = files[index];
+              final name = file.uri.pathSegments.last.replaceAll('.json', '');
+              return ListTile(
+                title: Text(name),
+                subtitle: Text(file.path),
+                leading: const Icon(Icons.alt_route),
+                trailing: IconButton(
+                  icon: const Icon(Icons.delete, color: Colors.red),
+                  tooltip: localizations.delete,
+                  onPressed: () async {
+                    await provider.deleteIntersection(file.path);
+                    files.removeAt(index);
+                    setState(() {});
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(localizations.intersectionDeleted(name))),
+                    );
+                  },
+                ),
+                onTap: () async {
+                  final jsonString = await file.readAsString();
+                  final data = jsonDecode(jsonString);
+                  provider.loadIntersectionFromData(data);
 
-                Navigator.pop(context);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(localizations.intersectionLoaded(name))),
-                );
-              },
-            );
-          },
+                  Navigator.pop(context);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(localizations.intersectionLoaded(name))),
+                  );
+                },
+              );
+            },
+          ),
         ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(localizations.close),
+          ),
+        ],
       ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.pop(context),
-          child: Text(localizations.close),
-        ),
-      ],
     ),
   );
 }
