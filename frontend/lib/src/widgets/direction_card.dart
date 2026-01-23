@@ -97,7 +97,7 @@ class _DirectionCardState extends State<DirectionCard> {
                           ? Theme.of(context).colorScheme.tertiary
                           : direction.isLocked
                               ? Theme.of(context).colorScheme.onTertiary
-                              : Theme.of(context).colorScheme.surface,
+                              : Theme.of(context).colorScheme.primary,
                     ),
                   ),
                 ],

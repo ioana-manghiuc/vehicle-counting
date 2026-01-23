@@ -1,5 +1,6 @@
 .venv/
-.frames/
-.videos/
+frames/
+videos/
+results/
 .flaskenv*
 flask_session/

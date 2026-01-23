@@ -23,11 +23,11 @@ ThemeData lightMode = ThemeData(
 ThemeData darkMode = ThemeData(
   brightness: Brightness.dark,
   colorScheme: ColorScheme.dark(
-    surface: const Color.fromARGB(255, 24, 13, 12), // = BACKGROUND !!!!!!
+    surface: const Color.fromARGB(255, 24, 15, 13), // = BACKGROUND !!!!!!
     onSurface: const Color.fromARGB(255, 245, 231, 223),
     primary: const Color.fromARGB(255, 241, 206, 195), // e.g. start button
     onPrimary: const Color.fromARGB(255, 84, 3, 27), 
-    secondary: const Color.fromARGB(255, 40, 21, 19), // app bar, direction panel, canvas bgk
+    secondary: const Color.fromARGB(255, 31, 21, 19), // app bar, direction panel, canvas bgk
     onSecondary: const Color.fromARGB(255, 236, 224, 216),
     primaryContainer: const Color.fromARGB(255, 40, 21, 19), // direction panel
     secondaryContainer: const Color.fromARGB(255, 61, 38, 27), // direction card

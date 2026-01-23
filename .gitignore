@@ -9,8 +9,9 @@ __pycache__/
 # Distribution / packaging
 .Python
 .venv/
-.frames/
-.videos/
+frames/
+videos/
+results/
 build/
 develop-eggs/
 dist/
