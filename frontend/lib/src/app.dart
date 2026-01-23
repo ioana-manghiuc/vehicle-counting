@@ -8,8 +8,8 @@ import 'localization/app_localizations.dart';
 import 'view_models/directions_view_model.dart';
 import 'view_models/results_view_model.dart';
 import 'theme/app_theme.dart';
-class VehicleCounterApp extends StatelessWidget {
-  const VehicleCounterApp({super.key});
+class VCount extends StatelessWidget {
+  const VCount({super.key});
 
   @override
   Widget build(BuildContext context) {
