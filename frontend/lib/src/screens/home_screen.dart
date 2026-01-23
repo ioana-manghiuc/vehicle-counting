@@ -25,22 +25,18 @@ class HomeScreen extends StatelessWidget {
   ) async {
     final resultsViewModel = context.read<ResultsViewModel>();
 
-    // Show loading state
     resultsViewModel.setLoading(true);
 
-    // Navigate to results screen
     if (context.mounted) {
       Navigator.of(context).pushNamed('/results');
     }
 
-    // Send directions to backend
     final results = await BackendService.sendDirections(
       homeViewModel.video!.path,
       directionsViewModel.serializeDirections(),
       directionsViewModel.selectedModel,
     );
 
-    // Update results view model with the response
     if (context.mounted) {
       if (results != null) {
         resultsViewModel.setResults(results);

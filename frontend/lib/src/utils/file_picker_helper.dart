@@ -24,7 +24,6 @@ class FilePickerHelper {
       if (!json.containsKey('name') || json['name'] is! String) return false;
       if (!json.containsKey('canvasSize') || json['canvasSize'] is! Map) return false;
 
-      // Accept either "directions" or legacy "lines" as the top-level list
       final directionsOrLines = json.containsKey('directions')
           ? json['directions']
           : json['lines'];
@@ -79,7 +78,6 @@ class FilePickerHelper {
       final fileContent = await File(filePath).readAsString();
       final jsonData = jsonDecode(fileContent) as Map<String, dynamic>;
 
-      // Normalize legacy top-level key "lines" to "directions" if needed
       if (!jsonData.containsKey('directions') && jsonData.containsKey('lines')) {
         jsonData['directions'] = jsonData['lines'];
       }

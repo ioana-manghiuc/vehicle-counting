@@ -33,7 +33,7 @@ class DirectionsPanel extends StatelessWidget {
               isDense: true,
               border: const OutlineInputBorder(),
             ),
-            items: const ['yolo11n', 'yolo11s', 'yolo11m', 'yolo11l', 'yolo11xl']
+            items: const ['yolo11n', 'yolo11s', 'yolo11m', 'yolo11l']
                 .map(
                   (m) => DropdownMenuItem(
                     value: m,

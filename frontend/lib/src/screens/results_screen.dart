@@ -94,7 +94,6 @@ class ResultsScreen extends StatelessWidget {
 
     return Column(
       children: [
-        // Download button
         Padding(
           padding: const EdgeInsets.all(12),
           child: ElevatedButton.icon(

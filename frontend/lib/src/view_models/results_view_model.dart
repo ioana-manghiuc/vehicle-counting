@@ -37,7 +37,6 @@ class ResultsViewModel extends ChangeNotifier {
       final timestamp = DateTime.now().toIso8601String().replaceAll(':', '-').split('.')[0];
       final filename = 'vehicle_counting_results_$timestamp.json';
 
-      // Open file picker to let user choose save location
       final outputPath = await FilePicker.platform.saveFile(
         dialogTitle: 'Save Results',
         fileName: filename,
@@ -46,7 +45,6 @@ class ResultsViewModel extends ChangeNotifier {
       );
 
       if (outputPath == null) {
-        // User cancelled
         return false;
       }
 

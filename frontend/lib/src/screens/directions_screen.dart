@@ -101,22 +101,18 @@ class _DirectionsPanelWithSendButton extends StatelessWidget {
   ) async {
     final resultsViewModel = context.read<ResultsViewModel>();
 
-    // Show loading state
     resultsViewModel.setLoading(true);
 
-    // Navigate to results screen
     if (context.mounted) {
       Navigator.of(context).pushNamed('/results');
     }
 
-    // Send directions to backend
     final results = await BackendService.sendDirections(
       video.path,
       directionsProvider.serializeDirections(),
       directionsProvider.selectedModel,
     );
 
-    // Update results view model with the response
     if (context.mounted) {
       if (results != null) {
         resultsViewModel.setResults(results);

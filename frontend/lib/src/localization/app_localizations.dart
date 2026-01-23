@@ -97,7 +97,6 @@ class AppLocalizations {
   String get loadFromDisk => _localizedStrings['loadFromDisk'] ?? 'Load from Disk';
   String get invalidFileContent => _localizedStrings['invalidFileContent'] ?? 'Invalid file content. Please select a valid intersection JSON file.';
   
-  // Model Info getters
   String get modelInfoTitle => _localizedStrings['modelInfoTitle'] ?? 'How to Choose the Right Model for Your Hardware';
   String get modelYolo11n => _localizedStrings['modelYolo11n'] ?? 'YOLO11n';
   String get modelYolo11s => _localizedStrings['modelYolo11s'] ?? 'YOLO11s';
