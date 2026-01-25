@@ -118,5 +118,7 @@
   "noResultsAvailable": "Nu sunt disponibile rezultate",
   "errorProcessingResults": "Eroare la procesarea rezultatelor",
   "failedToDownloadJSON": "Eșec la descărcarea JSON",
-  "failedToDownloadCSV": "Eșec la descărcarea CSV"
+  "failedToDownloadCSV": "Eșec la descărcarea CSV",
+  "noVideoAvailable": "Video anotat indisponibil",
+  "loadingVideo": "Se încarcă videoclipul..."
 }

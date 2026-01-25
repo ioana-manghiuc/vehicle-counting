@@ -119,5 +119,7 @@
   "noResultsAvailable": "No results available",
   "errorProcessingResults": "Error Processing Results",
   "failedToDownloadJSON": "Failed to download JSON",
-  "failedToDownloadCSV": "Failed to download CSV"
+  "failedToDownloadCSV": "Failed to download CSV",
+  "noVideoAvailable": "No annotated video available",
+  "loadingVideo": "Loading video..."
 }

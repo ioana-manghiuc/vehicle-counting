@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 import '../widgets/app_bar.dart';
+import '../widgets/annotated_video_player.dart';
 import '../view_models/results_view_model.dart';
 import '../localization/app_localizations.dart';
 
@@ -99,6 +100,7 @@ class ResultsScreen extends StatelessWidget {
     final data = viewModel.resultsData!;
     final results = data['results'] as Map<String, dynamic>?;
     final metadata = data['metadata'] as Map<String, dynamic>?;
+    final annotatedVideoUrl = metadata?['annotated_video'] as String?;
 
     return Padding(
       padding: const EdgeInsets.all(12),
@@ -106,25 +108,56 @@ class ResultsScreen extends StatelessWidget {
         children: [
           Expanded(
             flex: 6,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.secondary,
-                  border: Border.all(
-                    color: Theme.of(context).colorScheme.outlineVariant,
-                  ),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: results != null
-                    ? _buildResultsList(context, results)
-                    : Center(
-                        child: Text(
-                          AppLocalizations.of(context)?.translate('noResultsAvailable') ??
-                              'No results available',
+            child: Column(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.secondary,
+                        border: Border.all(
+                          color: Theme.of(context).colorScheme.outlineVariant,
                         ),
+                        borderRadius: BorderRadius.circular(12),
                       ),
-              ),
+                      child: annotatedVideoUrl != null
+                          ? _buildVideoPlayer(context, annotatedVideoUrl)
+                          : Center(
+                              child: Text(
+                                AppLocalizations.of(context)?.translate('noVideoAvailable') ??
+                                    'No annotated video available',
+                              ),
+                            ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Expanded(
+                  flex: 3,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.secondary,
+                        border: Border.all(
+                          color: Theme.of(context).colorScheme.outlineVariant,
+                        ),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: results != null
+                          ? _buildResultsList(context, results)
+                          : Center(
+                              child: Text(
+                                AppLocalizations.of(context)?.translate('noResultsAvailable') ??
+                                    'No results available',
+                              ),
+                            ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           const SizedBox(width: 12),
@@ -147,6 +180,10 @@ class ResultsScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget _buildVideoPlayer(BuildContext context, String videoUrl) {
+     return AnnotatedVideoPlayer(videoUrl: videoUrl);
   }
 
   Widget _buildResultsList(
