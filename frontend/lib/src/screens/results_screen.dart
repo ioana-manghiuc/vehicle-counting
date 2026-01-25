@@ -4,9 +4,9 @@ import '../widgets/app_bar.dart';
 import '../view_models/results_view_model.dart';
 import '../localization/app_localizations.dart';
 import '../utils/backend_service.dart';
-import '../widgets/results/loading_state.dart';
-import '../widgets/results/error_state.dart';
-import '../widgets/results/results_content.dart';
+import '../widgets/results_widgets/loading_state.dart';
+import '../widgets/results_widgets/error_state.dart';
+import '../widgets/results_widgets/results_content.dart';
 
 class ResultsScreen extends StatefulWidget {
   const ResultsScreen({super.key});
