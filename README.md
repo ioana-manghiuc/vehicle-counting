@@ -2,7 +2,7 @@
 
 ## Prerequisites
 - [Flutter SDK](https://flutter.dev/docs/get-started/install)
-- [Python 3.12](https://www.python.org/downloads/)
+- [Python 3.14](https://www.python.org/downloads/)
 
 ## Installation
 
@@ -16,7 +16,7 @@
      - Create: `py -m venv .venv`
      - Activate: `.venv\Scripts\activate`
    - macOS/Linux
-     - Create: `python3.12 -m venv .venv`
+     - Create: `python3.14 -m venv .venv`
      - Activate: `source .venv/bin/activate`
 3. Upgrade pip: `pip install --upgrade pip`
 4. Install dependencies: `pip install -r requirements.txt`
