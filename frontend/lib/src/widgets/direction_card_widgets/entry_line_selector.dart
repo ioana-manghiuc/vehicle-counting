@@ -38,8 +38,13 @@ class EntryLineSelector extends StatelessWidget {
               ),
             ),
             decoration: InputDecoration(
-              labelText: localizations.entryLineLabel(
-                direction.lines.indexWhere((l) => l.isEntry).clamp(0, direction.lines.length - 1) + 1,
+              label: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  localizations.entryLineLabel(
+                    direction.lines.indexWhere((l) => l.isEntry).clamp(0, direction.lines.length - 1) + 1,
+                  ),
+                ),
               ),
               isDense: true,
               border: const OutlineInputBorder(),

@@ -7,7 +7,15 @@ logger = logging.getLogger("app")
 
 
 class ModelConfig:
-    """Configuration for YOLO model paths and variants."""
+    """Configuration for YOLO model paths and variants.
+    
+    Note: YOLO26 models are not yet available for auto-download from Ultralytics.
+    Once they are released, add them back to OFFICIAL_MODELS:
+        'yolo26n-official': 'yolo26n.pt',
+        'yolo26s-official': 'yolo26s.pt',
+        'yolo26m-official': 'yolo26m.pt',
+        'yolo26l-official': 'yolo26l.pt',
+    """
     
     OFFICIAL_MODELS = {
         'yolo11': 'yolo11n.pt',
@@ -64,7 +72,7 @@ class ModelConfig:
 
             if not model_path.exists():
                 logger.info("Official model not found locally, using Ultralytics auto-download: %s", filename)
-                return filename  # Ultralytics will download to its cache
+                return filename  
             else:
                 logger.info("Using local official Ultralytics model: %s", model_path)
                 return str(model_path)
