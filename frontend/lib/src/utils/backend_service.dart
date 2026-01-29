@@ -138,7 +138,7 @@ class BackendService {
       request.fields['processing_id'] = _currentProcessingId!;
 
       final requestFuture = _httpClient!.send(request).timeout(
-        const Duration(seconds: 3600),
+        const Duration(seconds: 7200),
         onTimeout: () {
           throw TimeoutException('Vehicle counting did not complete');
         },

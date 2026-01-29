@@ -169,12 +169,14 @@ class VehicleCounter:
         """Check if segment p1->p2 intersects the line segment (x1,y1)-(x2,y2)."""
         q1 = (line['x1'], line['y1'])
         q2 = (line['x2'], line['y2'])
+        
 
         def orient(a, b, c):
             return (b[1] - a[1]) * (c[0] - b[0]) - (b[0] - a[0]) * (c[1] - b[1])
 
         def on_segment(a, b, c):
-            return min(a[0], b[0]) <= c[0] <= max(a[0], b[0]) and min(a[1], b[1]) <= c[1] <= max(a[1], b[1])
+            return min(a[0], b[0]) <= c[0] <= max(a[0], b[0]) and \
+                    min(a[1], b[1]) <= c[1] <= max(a[1], b[1])
 
         o1 = orient(p1, p2, q1)
         o2 = orient(p1, p2, q2)

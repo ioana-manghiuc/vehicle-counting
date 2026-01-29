@@ -11,7 +11,7 @@ from concurrent.futures import ThreadPoolExecutor
 from fastapi import APIRouter, UploadFile, File, Form, HTTPException
 
 from app.config.model_config import ModelConfig
-from app.validators.direction_validator import validate_directions
+from app.utils.direction_validator import validate_directions
 from app.services.vehicle_counter import VehicleCounter
 from app.services.yolo_tracker import YOLOVehicleTracker
 from app.services.video_processor import VideoProcessor
@@ -47,10 +47,9 @@ async def count_vehicles(
         logger.warning("   intersection_name: %s", intersection_name)
         
         # Register task for cancellation tracking
-        cancellation.register_task(processing_id)
+        cancellation.register_task(processing_id) 
         logger.warning("Registered task for processing_id: %s", processing_id)
 
-        # Parse and validate directions
         directions_data = json.loads(directions)
         validate_directions(directions_data)
 

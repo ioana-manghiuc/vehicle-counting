@@ -61,7 +61,7 @@
     "placeholders": {
       "name": {
         "type": "String"
-      }
+      } 
     }
   },
   "intersectionLoaded": "Intersecția \"{name}\" a fost încărcată!",

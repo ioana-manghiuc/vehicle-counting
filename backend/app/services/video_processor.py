@@ -50,7 +50,6 @@ class VideoProcessor:
         check_frequency = 0
         
         for frame_idx, detections, frame in self.tracker.track_video(self.video_path):
-            # Check for cancellation periodically
             if frame_idx % 5 == 0:
                 check_frequency += 1
                 if is_cancelled(self.processing_id):
@@ -65,21 +64,17 @@ class VideoProcessor:
                 )
                 break
             
-            # Log progress
             if frame_idx % 10 == 0:
                 logger.info(
                     f"Processing frame {frame_idx}, detections: {len(detections)}"
                 )
             
-            # Slow down when objects detected (processing throttle)
             if len(detections) > 0:
-                time.sleep(0.033)  # ~30ms delay
-            
-            # Update counts
+                time.sleep(0.033)  
+
             self.counter.update(detections)
             frame_count = frame_idx
             
-            # Annotate frame
             overlay = self.annotator.annotate_frame(
                 frame=frame,
                 detections=detections,
@@ -88,7 +83,6 @@ class VideoProcessor:
                 directions_data=self.directions_data
             )
             
-            # Write annotated frame
             self.writer.write(overlay)
         
         return frame_count

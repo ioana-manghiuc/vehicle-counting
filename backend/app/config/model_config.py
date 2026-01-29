@@ -4,7 +4,7 @@ from fastapi import HTTPException
 import logging
 
 logger = logging.getLogger("app")
-
+ 
 
 class ModelConfig:
     """Configuration for YOLO model paths and variants.
