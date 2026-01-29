@@ -84,6 +84,7 @@ class AppLocalizations {
   String get userManualStepDraw => _localizedStrings['userManualStepDraw'] ?? 'Click to add points on the image to create direction lines, add labels, and lock them.';
   String get userManualStepSend => _localizedStrings['userManualStepSend'] ?? 'Send the locked directions to the backend.';
   String get userManualTip => _localizedStrings['userManualTip'] ?? 'Tip: You can change colors before drawing a new direction.';
+  String get userManualEditingLine => _localizedStrings['userManualEditingLine'] ?? "You can edit a line's coordinates by selecting it, choosing a coordinate point (select in the direction card), and use WASD. The keys W and S move Y coordinates up and down, while A and D move X coordinates left and right.";
   String get uploadVideoToStartDrawingDirections => _localizedStrings['uploadVideoToStartDrawingDirections'] ?? 'Upload a video to start drawing directions';
   String get directionWarning => _localizedStrings['directionWarning'] ?? 'Direction must have at least 2 points';
   String get intersectionName => _localizedStrings['intersectionName'] ?? 'Intersection Name';

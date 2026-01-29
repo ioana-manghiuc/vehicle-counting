@@ -3,7 +3,8 @@
   "userManualIntro": "Follow these steps to get started:",
   "userManualStepUpload": "Click the canvas or upload button to select a video.",
   "userManualStepWait": "Wait while the server prepares the thumbnail.",
-  "userManualStepDraw": "Click to add points on the image to create direction lines, add labels, and lock them.",
+  "userManualStepDraw": "Click to add points on the image to create direction lines, add labels, and save them. Select which line is considered the entry point.",
   "userManualStepSend": "Send the locked directions to the backend.",
-  "userManualTip": "Tip: You can change colors before drawing a new direction."
+  "userManualTip": "You can change colors before drawing a new direction!",
+  "userManualEditingLine": "You can edit a line's coordinates by selecting it, choosing a coordinate point (select in the direction card), and use WASD. The keys W and S move Y coordinates up and down, while A and D move X coordinates left and right."
 }

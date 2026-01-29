@@ -51,6 +51,20 @@ class AboutScreen extends StatelessWidget {
                 ),
               ),
             ),
+            const SizedBox(height: 16),
+            Card(
+              child: Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: theme.colorScheme.secondary,
+                ),
+                child: Text(
+                  localizations.userManualEditingLine,
+                  style: theme.textTheme.bodyMedium,
+                ),
+              ),
+            ),
           ],
         ),
       ),

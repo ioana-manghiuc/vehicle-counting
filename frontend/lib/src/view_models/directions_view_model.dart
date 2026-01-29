@@ -12,7 +12,7 @@ class DirectionsViewModel extends ChangeNotifier {
     DirectionModel? _active;    
     DirectionModel? _selected;  
     Color _currentColor = Colors.red;
-    String _selectedModel = 'yolo11n';
+    String _selectedModel = 'yolo11s';
     bool _isDrawingLine = false;
     String? _selectedLineId;
 

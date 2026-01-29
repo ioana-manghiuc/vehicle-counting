@@ -14,36 +14,17 @@ class DirectionsPanel extends StatelessWidget {
     final provider = context.watch<DirectionsViewModel>();
     final localizations = AppLocalizations.of(context)!;
 
-    const officialModelLabels = {
-      'yolo11s-official': 'YOLO11S (official)',
-      'yolo11m-official': 'YOLO11M (official)',
-      'yolo11l-official': 'YOLO11L (official)',
-      'yolo26n-official': 'YOLO26N (official)',
-      'yolo26s-official': 'YOLO26S (official)',
-      'yolo26m-official': 'YOLO26M (official)',
-      'yolo26l-official': 'YOLO26L (official)',
-    };
-
     final modelItems = [
-      DropdownMenuItem(
-        value: 'yolo11',
-        child: Text(localizations.modelYolo11Official),
-      ),
-      ...officialModelLabels.entries.map(
-        (entry) => DropdownMenuItem(
-          value: entry.key,
-          child: Text(entry.value),
-        ),
-      ),
-      ...['yolo11n', 'yolo11s', 'yolo11m', 'yolo11l', 'yolo26s', 'yolo26n', 'yolo26m', 'yolo26l',
-          'yolo11n-cpu','yolo11s-cpu16','yolo11s-cpu32']
+      'yolo11s', 'yolo11m', 'yolo11l', 'yolo26s', 'yolo26m', 'yolo26l',
+      'yolo11s-cpu32', 'yolo11m-cpu', 'yolo11l-cpu', 
+      'yolo26n-cpu', 'yolo26s-cpu', 'yolo26m-cpu', 'yolo26l-cpu']
           .map(
             (m) => DropdownMenuItem(
               value: m,
               child: Text(m.toUpperCase()),
             ),
-          ),
-    ];
+          )
+          .toList();
 
     return Container(
       padding: const EdgeInsets.all(8),
